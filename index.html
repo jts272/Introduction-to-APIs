@@ -8,6 +8,10 @@
   </head>
   <body>
     <div id="content"></div>
+    <!-- 
+    The following scripts are 'Promises': 'when this is complete,
+    do this!'. When, then and catch (when the promise breaks!)
+    -->
     <!-- <script>
       // Chained methods to fetch, convert the response to text in a
       // 'response' object, then show this data in JS innerText.
@@ -18,14 +22,26 @@
         });
     </script> -->
     <script>
-      // Chained methods to fetch, convert the response to text in a
-      // 'response' JSON object [object Object] then use dot notation
-      // to access object values.
-      fetch("https://ci-swapi.herokuapp.com/api/")
-        .then((response) => response.json())
-        .then((data) => {
-          document.getElementById("content").innerText = data.people;
-        });
+      // // Chained methods to fetch, convert the response to text in a
+      // // 'response' JSON object [object Object] then use dot notation
+      // // to access object values.
+      // fetch("https://ci-swapi.herokuapp.com/api/")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     document.getElementById("content").innerText = data.people;
+      //   })
+      //   // `console.error` shows more serious warnings.
+      //   .catch((e) => console.error("Error: ", e));
+
+      // Refactor the above function to use a callback:
+      fetch("https://ci-swapi.herokuapp.com/api/people/1/")
+        .then((response) => response.text())
+        .then((data) => displayData(data))
+        .catch((e) => console.error("Error: ", e));
+      // The callback:
+      function displayData(data) {
+        document.getElementById("content").innerText = data;
+      }
     </script>
   </body>
 </html>
